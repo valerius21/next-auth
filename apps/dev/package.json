@@ -6,13 +6,13 @@
   "scripts": {
     "clean": "rm -rf .next",
     "copy:css": "cpx \"../../packages/next-auth/css/**/*\" src/css --watch",
-    "watch:css": "cd ../../packages/next-auth && npm run watch:css",
+    "watch:css": "cd ../../packages/next-auth && pnpm watch:css",
     "dev": "npm-run-all --parallel dev:next watch:css copy:css",
-    "dev:next": "npx next dev",
-    "build": "npx next build",
+    "dev:next": "pnpx next dev",
+    "build": "pnpx next build",
     "start": "next start",
-    "email": "npx fake-smtp-server",
-    "start:email": "npm run email"
+    "email": "pnpx fake-smtp-server",
+    "start:email": "pnpm email"
   },
   "license": "ISC",
   "dependencies": {
@@ -29,6 +29,8 @@
   "devDependencies": {
     "@types/react": "^17.0.37",
     "@types/react-dom": "^17.0.11",
+    "cpx": "^1.5.0",
+    "npm-run-all": "^4.1.5",
     "prisma": "^3.10.0"
   }
 }

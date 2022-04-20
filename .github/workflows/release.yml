@@ -20,22 +20,22 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: 16
-          cache: "yarn"
+          cache: "pnpm"
       - name: Cache Node Modules
         id: cache-node
         uses: actions/cache@v2
         with:
           path: "**/node_modules"
-          key: cache-node_modules-${{ runner.os }}-${{ hashFiles('**/yarn.lock') }}-${{ github.run_id }}
+          key: cache-node_modules-${{ runner.os }}-${{ hashFiles('**/pnpm-lock.yaml') }}-${{ github.run_id }}
           restore-keys: |
-            cache-node_modules-${{ runner.os }}-${{ hashFiles('**/yarn.lock') }}-${{ github.run_id }}
-            cache-node_modules-${{ runner.os }}-${{ hashFiles('**/yarn.lock') }}-
+            cache-node_modules-${{ runner.os }}-${{ hashFiles('**/pnpm-lock.yaml') }}-${{ github.run_id }}
+            cache-node_modules-${{ runner.os }}-${{ hashFiles('**/pnpm-lock.yaml') }}-
       - name: Install dependencies
-        run: yarn --prefer-offline --frozen-lockfile
+        run: pnpm --prefer-offline --frozen-lockfile
       - name: Build
-        run: yarn build
+        run: pnpm build
       - name: Run tests
-        run: yarn test
+        run: pnpm test
         env:
           UPSTASH_REDIS_URL: ${{ secrets.UPSTASH_REDIS_URL }}
           UPSTASH_REDIS_KEY: ${{ secrets.UPSTASH_REDIS_KEY }}
@@ -59,23 +59,23 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: 16
-          cache: "yarn"
+          cache: "pnpm"
       - name: Cache Node Modules
         id: cache-node
         uses: actions/cache@v2
         with:
           path: "**/node_modules"
-          key: cache-node_modules-${{ runner.os }}-${{ hashFiles('**/yarn.lock') }}-${{ github.run_id }}
+          key: cache-node_modules-${{ runner.os }}-${{ hashFiles('**/pnpm-lock.yaml') }}-${{ github.run_id }}
           restore-keys: |
-            cache-node_modules-${{ runner.os }}-${{ hashFiles('**/yarn.lock') }}-${{ github.run_id }}
-            cache-node_modules-${{ runner.os }}-${{ hashFiles('**/yarn.lock') }}-
+            cache-node_modules-${{ runner.os }}-${{ hashFiles('**/pnpm-lock.yaml') }}-${{ github.run_id }}
+            cache-node_modules-${{ runner.os }}-${{ hashFiles('**/pnpm-lock.yaml') }}-
       - name: Install dependencies
-        run: yarn --prefer-offline --frozen-lockfile
+        run: pnpm --prefer-offline --frozen-lockfile
       - name: Publish to npm and GitHub
         run: |
           git config --global user.email "balazsorban44@users.noreply.github.com"
           git config --global user.name "Balázs Orbán"
-          yarn release
+          pnpm release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN_PKG: ${{ secrets.NPM_TOKEN_PKG }}
@@ -93,18 +93,18 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: 16
-          cache: "yarn"
+          cache: "pnpm"
       - name: Cache Node Modules
         id: cache-node
         uses: actions/cache@v2
         with:
           path: "**/node_modules"
-          key: cache-node_modules-${{ runner.os }}-${{ hashFiles('**/yarn.lock') }}-${{ github.run_id }}
+          key: cache-node_modules-${{ runner.os }}-${{ hashFiles('**/pnpm.lock') }}-${{ github.run_id }}
           restore-keys: |
-            cache-node_modules-${{ runner.os }}-${{ hashFiles('**/yarn.lock') }}-${{ github.run_id }}
-            cache-node_modules-${{ runner.os }}-${{ hashFiles('**/yarn.lock') }}-
+            cache-node_modules-${{ runner.os }}-${{ hashFiles('**/pnpm.lock') }}-${{ github.run_id }}
+            cache-node_modules-${{ runner.os }}-${{ hashFiles('**/pnpm.lock') }}-
       - name: Install dependencies
-        run: yarn --prefer-offline --frozen-lockfile
+        run: pnpm --prefer-offline --frozen-lockfile
       - name: Determine version
         uses: ./.github/version-pr
         id: determine-version
@@ -120,7 +120,7 @@ jobs:
       - name: Comment version on PR
         uses: NejcZdovc/comment-pr@v1
         with:
-          message: "🎉 Experimental release [published on npm](https://www.npmjs.com/package/next-auth/v/${{ env.VERSION }})!\n\n```sh\nnpm i next-auth@${{ env.VERSION }}\n```\n```sh\nyarn add next-auth@${{ env.VERSION }}\n```"
+          message: "🎉 Experimental release [published on npm](https://www.npmjs.com/package/next-auth/v/${{ env.VERSION }})!\n\n```sh\nnpm i next-auth@${{ env.VERSION }}\n```\n```sh\npnpm add next-auth@${{ env.VERSION }}\n```"
         env:
           VERSION: ${{ steps.determine-version.outputs.version }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
