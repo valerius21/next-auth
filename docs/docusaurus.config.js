@@ -26,25 +26,25 @@ module.exports = {
         {
           to: "/getting-started/introduction",
           activeBasePath: "docs",
-          label: "Documentation",
+          label: "Getting started",
           position: "left",
         },
         {
           to: "/tutorials",
           activeBasePath: "docs",
-          label: "Tutorials",
+          label: "Guides",
           position: "left",
         },
         {
-          to: "/faq",
+          to: "/reference/introduction",
           activeBasePath: "docs",
-          label: "FAQ",
+          label: "Reference",
           position: "left",
         },
         {
           to: "/security",
           activeBasePath: "docs",
-          label: "Security",
+          label: "Concepts",
           position: "left",
         },
         {
@@ -147,6 +147,7 @@ module.exports = {
           lastVersion: "current",
           showLastUpdateAuthor: true,
           showLastUpdateTime: true,
+          breadcrumbs: false,
           remarkPlugins: [
             require("remark-github"),
             require("mdx-mermaid"),

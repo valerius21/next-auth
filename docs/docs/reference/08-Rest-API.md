@@ -1,6 +1,6 @@
 ---
 id: rest-api
-title: REST API
+title: Rest API
 ---
 
 NextAuth.js exposes a REST API that is used by the NextAuth.js client.

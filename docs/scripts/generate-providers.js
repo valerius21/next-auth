@@ -1,7 +1,7 @@
 const path = require("path")
 const fs = require("fs")
 
-const providersPath = path.join(process.cwd(), "/docs/providers")
+const providersPath = path.join(process.cwd(), "/docs/reference/05-Providers")
 
 const files = fs.readdirSync(providersPath, "utf8")
 

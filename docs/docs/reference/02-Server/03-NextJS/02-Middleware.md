@@ -1,6 +1,4 @@
-# Next.js
-
-## Middleware
+# Middleware
 
 You can use a Next.js Middleware with NextAuth.js to protect your site.
 
@@ -10,7 +8,7 @@ If the following options look familiar, this is because they are a subset of [th
 
 You can get the `withAuth` middleware function from `next-auth/middleware` either as a default or a named import:
 
-### Prerequisites
+## Prerequisites
 
 You must set the [`NEXTAUTH_SECRET`](/configuration/options#nextauth_secret) environment variable when using this middleware. If you are using the [`secret` option](/configuration/options#secret) this value must match.
 
@@ -24,50 +22,7 @@ import withAuth from "next-auth/middleware"
 import { withAuth } from "next-auth/middleware"
 ```
 
----
-
-### `callbacks`
-
-- **Required:** No
-
-#### Description
-
-Callbacks are asynchronous functions you can use to control what happens when an action is performed.
-
-#### Example (default value)
-
-```js
- callbacks: {
-   authorized({ req , token }) {
-     if(token) return true // If there is a token, the user is authenticated
-   }
- }
-```
-
----
-
-### `pages`
-
-- **Required**: _No_
-
-#### Description
-
-Specify URLs to be used if you want to create custom sign in, and error pages. Pages specified will override the corresponding built-in page.
-
-#### Example (default value)
-
-```js
-pages: {
-  signIn: '/auth/signin',
-  error: '/auth/error',
-}
-```
-
-See the documentation for the [pages option](/configuration/pages) for more information.
-
----
-
-### Examples
+## Usage
 
 `withAuth` is very flexible, there are multiple ways to use it.
 
@@ -75,7 +30,7 @@ See the documentation for the [pages option](/configuration/pages) for more info
 If you do not define the options, NextAuth.js will use the default values for the omitted options.
 :::
 
-#### default re-export
+### Default re-export
 
 ```js title="pages/_middleware.js"
 export { default } from "next-auth/middleware"
@@ -83,7 +38,7 @@ export { default } from "next-auth/middleware"
 
 With this one line, when someone tries to load any of your pages, they will have to be logged-in first. Otherwise, they are redirected to the login page. It will assume that you are using the `NEXTAUTH_SECRET` environment variable.
 
-#### default `withAuth` export
+### Default `withAuth` export
 
 ```js title="pages/admin/_middleware.js"
 import { withAuth } from "next-auth/middleware"
@@ -97,7 +52,7 @@ export default withAuth({
 
 With the above code, you just made sure that only user's with the `admin` role can access any of the pages under the `/admin` route. (Including nested routes as well, like `/admin/settings` etc.).
 
-#### wrap middleware
+### Wrap middleware
 
 ```ts title="pages/admin/_middleware.ts"
 import type { NextRequest } from "next/server"
@@ -121,7 +76,48 @@ The `middleware` function will only be invoked if the `authorized` callback retu
 
 ---
 
-### Caveats
+## Options
+
+### `callbacks`
+
+- **Required:** No
+
+Callbacks are asynchronous functions you can use to control what happens when an action is performed.
+
+```js
+import { withAuth } from "next-auth/middleware"
+
+export default withAuth({
+  callbacks: {
+    authorized({ req, token }) {
+      if (token) return true // If there is a token, the user is authenticated
+    },
+  },
+})
+```
+
+---
+
+### `pages`
+
+- **Required**: _No_
+
+Specify URLs to be used if you want to create custom sign in, and error pages. Pages specified will override the corresponding built-in page.
+
+```ts
+import { withAuth } from "next-auth/middleware"
+
+export default withAuth({
+  pages: {
+    signIn: "/auth/signin",
+    error: "/auth/error",
+  },
+})
+```
+
+See the documentation for the [pages option](/configuration/pages) for more information.
+
+## Caveats
 
 - Currently only supports session verification, as parts of the sign-in code need to run in a Node.js environment. In the future, we would like to make sure that NextAuth.js can fully run at the [Edge](https://nextjs.org/docs/api-reference/edge-runtime)
 - Only supports the `"jwt"` [session strategy](/configuration/options#session). We need to wait until databases at the Edge become mature enough to ensure a fast experience. (If you know of an Edge-compatible database, we would like if you proposed a new [Adapter](/tutorials/creating-a-database-adapter))

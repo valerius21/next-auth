@@ -1,13 +1,11 @@
----
-id: initialization
-title: Initialization
----
-
 In Next.js, you can define an API route that will catch all requests that begin with a certain path. Conveniently, this is called [Catch all API routes](https://nextjs.org/docs/api-routes/dynamic-api-routes#catch-all-api-routes).
 
-When you define a `/pages/api/auth/[...nextauth]` JS/TS file, you instruct NextAuth.js that every API request beginning with `/api/auth/*` should be handled by the code written in the `[...nextauth]` file.
+When you define a `/pages/api/auth/[...nextauth].{js/ts}`, you instruct NextAuth that every API request beginning with `/api/auth/*` should be handled by the code written in the `[...nextauth].{js/ts}` file.
 
-Depending on your use case, you can initialize NextAuth.js in two different ways:
+Depending on your use case, you can initialize NextAuth in two different ways:
+
+- [Simple initialization](simple-initialization)
+- [Advanced initialization](advanced-initialization)
 
 ## Simple initialization
 
