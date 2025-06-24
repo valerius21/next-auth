@@ -22,8 +22,8 @@ import AuthentikProvider from "next-auth/providers/authentik";
 ...
 providers: [
   AuthentikProvider({
-    clientId: process.env.AUTHENTIK_ID,
-    clientSecret: process.env.AUTHENTIK_SECRET,
+    clientId: process.env.AUTHENTIK_CLIENT_ID,
+    clientSecret: process.env.AUTHENTIK_CLIENT_SECRET,
     issuer: process.env.AUTHENTIK_ISSUER,
   })
 ]
